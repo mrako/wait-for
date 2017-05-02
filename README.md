@@ -1,4 +1,4 @@
-## Wait for another service
+## Wait for another service to become available
 
 `./wait-for` is a script designed to synchronize services like docker containers. It is [sh](https://en.wikipedia.org/wiki/Bourne_shell) and [alpine](https://alpinelinux.org/) compatible.
 
