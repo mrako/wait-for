@@ -40,3 +40,10 @@ services:
     depends_on:
       - db
 ```
+
+## Testing
+
+Ironically testing is done using [bats](https://github.com/sstephenson/bats), which on the other hand is depending on [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
+
+    docker build -t wait-for .
+    docker run -t wait-for
