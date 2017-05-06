@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "./node_modules/.bin/bats wait-for.bats"
+  },
   "dependencies": {
     "bats": "^0.4.2"
   }
