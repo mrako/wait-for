@@ -8,6 +8,11 @@ OLD_HOST=$HOST
 TIMEOUT=15
 QUIET=0
 
+if ! which nc >/dev/null; then
+  echo "Netcat is not installed. This script requires netcat to work correctly."
+  exit 1
+fi
+
 echoerr() {
   if [ "$QUIET" -ne 1 ]; then printf "%s\n" "$*" 1>&2; fi
 }
