@@ -4,7 +4,7 @@
 
 When using this tool, you only need to pick the `wait-for` file as part of your project.
 
-[![Build Status](https://travis-ci.org/eficode/wait-for.svg?branch=master)](https://travis-ci.org/Eficode/wait-for)
+[![Build Status](https://travis-ci.org/eficode/wait-for.svg?branch=master)](https://travis-ci.org/eficode/wait-for)
 
 ## Usage
 
