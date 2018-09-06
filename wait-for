@@ -1,5 +1,10 @@
 #!/bin/sh
 
+OLD_TIMEOUT=$TIMEOUT
+OLD_QUIET=$QUIET
+OLD_PORT=$PORT
+OLD_HOST=$HOST
+
 TIMEOUT=15
 QUIET=0
 
@@ -20,14 +25,13 @@ USAGE
 }
 
 wait_for() {
-  command="$*"
   for i in `seq $TIMEOUT` ; do
     nc -z "$HOST" "$PORT" > /dev/null 2>&1
     
     result=$?
     if [ $result -eq 0 ] ; then
-      if [ -n "$command" ] ; then
-        exec $command
+      if [ $# -gt 0 ] ; then
+        TIMEOUT=$OLD_TIMEOUT QUIET=$OLD_QUIET PORT=$OLD_PORT HOST=$OLD_HOST exec "$@"
       fi
       exit 0
     fi
