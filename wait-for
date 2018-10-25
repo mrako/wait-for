@@ -30,11 +30,20 @@ USAGE
   exit "$exitcode"
 }
 
+test_connection() {
+  # force a 1-second timeout on darwin (https://stackoverflow.com/a/20460402/2063546)
+  if [ -z "${OSTYPE##*darwin*}" ] ; then
+    nc -z -w 1 -G 1 "$1" "$2" > /dev/null 2>&1
+  else
+    nc -z -w 1 "$1" "$2" > /dev/null 2>&1
+  fi
+}
+
 wait_for() {
   for i in `seq $TIMEOUT` ; do
-    # use a 1-second timeout
-    nc -w 1 -z "$HOST" "$PORT" > /dev/null 2>&1
-    
+    # use a 1-second timeout, but still sleep 0.1 seconds after just to be safe
+    test_connection "$HOST" "$PORT"
+
     result=$?
     if [ $result -eq 0 ] ; then
       if [ $# -gt 0 ] ; then
