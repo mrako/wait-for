@@ -4,9 +4,11 @@ OLD_TIMEOUT=$TIMEOUT
 OLD_QUIET=$QUIET
 OLD_PORT=$PORT
 OLD_HOST=$HOST
+OLD_LOOSE=$LOOSE
 
 TIMEOUT=15
 QUIET=0
+LOOSE=0
 
 if ! which nc >/dev/null; then
   echo "Netcat is not installed. This script requires netcat to work correctly."
@@ -23,7 +25,7 @@ usage() {
 Usage:
   $(basename $0) host:port [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
-  -s | --strict                       Only execute subcommand if the test succeeds
+  -l | --loose                        Execute subcommand even if the test times out
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
   -- COMMAND ARGS                     Execute command with args after the test finishes
 USAGE
@@ -40,27 +42,19 @@ test_connection() {
 }
 
 wait_for() {
+  local result
   for i in `seq $TIMEOUT` ; do
     # use a 1-second timeout, but still sleep 0.1 seconds after just to be safe
     test_connection "$HOST" "$PORT"
-
     result=$?
-    if [ $result -eq 0 ] ; then
-      if [ $# -gt 0 ] ; then
-        TIMEOUT=$OLD_TIMEOUT QUIET=$OLD_QUIET PORT=$OLD_PORT HOST=$OLD_HOST exec "$@"
-      fi
-      exit 0
-    fi
+    if [ $result -eq 0 ] ; then break ; fi
     sleep 1
   done
-  echo "Operation timed out" >&2
-  if [ $result -ne 0 ] && [ $STRICT -ne 1 ] ; then
-    if [ $# -gt 0 ] ; then
-      exec "$@"
-    fi
-    exit 0
+  [ $result -ne 0 ] && echo "Operation timed out" >&2
+  if [ $result -eq 0 -o $LOOSE -eq 1 -a $# -gt 0 ] ; then
+    TIMEOUT=$OLD_TIMEOUT QUIET=$OLD_QUIET PORT=$OLD_PORT HOST=$OLD_HOST LOOSE=$OLD_LOOSE exec "$@"
   fi
-  exit 1
+  exit $result
 }
 
 while [ $# -gt 0 ]
@@ -75,8 +69,8 @@ do
     QUIET=1
     shift 1
     ;;
-    -s | --strict)
-    STRICT=1
+    -l | --loose)
+    LOOSE=1
     shift 1
     ;;
     -t)
@@ -106,7 +100,5 @@ if [ "$HOST" = "" -o "$PORT" = "" ]; then
   echoerr "Error: you need to provide a host and port to test."
   usage 2
 fi
-
-STRICT=${STRICT:-0}
 
 wait_for "$@"
