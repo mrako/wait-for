@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 OLD_TIMEOUT=$TIMEOUT
 OLD_QUIET=$QUIET
