@@ -32,7 +32,8 @@ USAGE
 
 wait_for() {
   for i in `seq $TIMEOUT` ; do
-    nc -z "$HOST" "$PORT" > /dev/null 2>&1
+    # use a 1-second timeout
+    nc -w 1 -z "$HOST" "$PORT" > /dev/null 2>&1
     
     result=$?
     if [ $result -eq 0 ] ; then
