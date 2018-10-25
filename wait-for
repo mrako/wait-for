@@ -21,7 +21,7 @@ usage() {
   exitcode="$1"
   cat << USAGE >&2
 Usage:
-  $cmdname host:port [-t timeout] [-- command args]
+  $(basename $0) host:port [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
   -s | --strict                       Only execute subcommand if the test succeeds
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
