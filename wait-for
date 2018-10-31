@@ -19,6 +19,14 @@ echoerr() {
   if [ "$QUIET" -ne 1 ]; then printf "%s\n" "$*" 1>&2; fi
 }
 
+conditionally_output() {
+  if [ "$QUIET" -ne 1 ]; then
+    "$@"
+  else
+    "$@" > /dev/null 2>&1
+  fi
+}
+
 usage() {
   exitcode="$1"
   cat << USAGE >&2
@@ -33,11 +41,13 @@ USAGE
 }
 
 test_connection() {
+  conditionally_output echo "Testing connection to $1:$2..."
+
   # force a 1-second timeout on darwin (https://stackoverflow.com/a/20460402/2063546)
   if [ -z "${OSTYPE##*darwin*}" ] ; then
-    nc -z -w 1 -G 1 "$1" "$2" > /dev/null 2>&1
+    conditionally_output nc -z -w 1 -G 1 "$1" "$2"
   else
-    nc -z -w 1 "$1" "$2" > /dev/null 2>&1
+    conditionally_output nc -z -w 1 "$1" "$2" > /dev/null 2>&1
   fi
 }
 
@@ -50,7 +60,7 @@ wait_for() {
     if [ $result -eq 0 ] ; then break ; fi
     sleep 1
   done
-  [ $result -ne 0 ] && echo "Operation timed out" >&2
+  [ $result -ne 0 ] && echoerr "Operation timed out"
   if [ $result -eq 0 -o $LOOSE -eq 1 -a $# -gt 0 ] ; then
     TIMEOUT=$OLD_TIMEOUT QUIET=$OLD_QUIET PORT=$OLD_PORT HOST=$OLD_HOST LOOSE=$OLD_LOOSE exec "$@"
   fi
