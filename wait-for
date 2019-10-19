@@ -9,7 +9,7 @@ echoerr() {
 
 usage() {
   exitcode="$1"
-  cat << USAGE >&2
+  cat <<USAGE >&2
 Usage:
   $cmdname host:port [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
@@ -18,54 +18,61 @@ Usage:
 USAGE
   exit "$exitcode"
 }
-
+checkport() {
+  nc -z "$HOST" "$PORT" >/dev/null 2>&1
+  result=$?
+  if [ $result -eq 0 ]; then
+    if [ -n "$command" ]; then
+      exec $command
+    fi
+    exit 0
+  fi
+  sleep 1
+}
 wait_for() {
   command="$*"
-  for i in `seq $TIMEOUT` ; do
-    nc -z "$HOST" "$PORT" > /dev/null 2>&1
-    
-    result=$?
-    if [ $result -eq 0 ] ; then
-      if [ -n "$command" ] ; then
-        exec $command
-      fi
-      exit 0
-    fi
-    sleep 1
-  done
-  echo "Operation timed out" >&2
-  exit 1
+  if [ $TIMEOUT -eq 0 ]; then
+    while true; do
+      checkport
+    done
+  else
+    for i in $(seq $TIMEOUT); do
+      echo "Looping ... number $i"
+      checkport
+    done
+    echo "Operation timed out" >&2
+    exit 1
+  fi
 }
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
   case "$1" in
-    *:* )
-    HOST=$(printf "%s\n" "$1"| cut -d : -f 1)
-    PORT=$(printf "%s\n" "$1"| cut -d : -f 2)
+  *:*)
+    HOST=$(printf "%s\n" "$1" | cut -d : -f 1)
+    PORT=$(printf "%s\n" "$1" | cut -d : -f 2)
     shift 1
     ;;
-    -q | --quiet)
+  -q | --quiet)
     QUIET=1
     shift 1
     ;;
-    -t)
+  -t)
     TIMEOUT="$2"
     if [ "$TIMEOUT" = "" ]; then break; fi
     shift 2
     ;;
-    --timeout=*)
+  --timeout=*)
     TIMEOUT="${1#*=}"
     shift 1
     ;;
-    --)
+  --)
     shift
     break
     ;;
-    --help)
+  --help)
     usage 0
     ;;
-    *)
+  *)
     echoerr "Unknown argument: $1"
     usage 1
     ;;
