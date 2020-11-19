@@ -6,6 +6,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY . /app
-RUN npm install
+
+RUN npm ci
 
 CMD ./node_modules/.bin/bats wait-for.bats
