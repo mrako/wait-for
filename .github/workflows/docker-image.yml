@@ -1,0 +1,19 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Build the test Docker image
+      run: docker build --tag wait-for .
+      
+    - name: Run the tests
+      run: docker run --tty wait-for
+
