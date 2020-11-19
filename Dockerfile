@@ -9,4 +9,5 @@ COPY . /app
 
 RUN npm ci
 
-CMD ./node_modules/.bin/bats wait-for.bats
+CMD npm test
+
