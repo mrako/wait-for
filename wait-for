@@ -55,7 +55,6 @@ do
     ;;
     -t)
     TIMEOUT="$2"
-    if [ "$TIMEOUT" = "" ]; then break; fi
     shift 2
     ;;
     --timeout=*)
@@ -75,6 +74,11 @@ do
     ;;
   esac
 done
+
+if ! [ "$TIMEOUT" -ge 0 ] 2>/dev/null; then
+  echoerr "Error: invalid timeout '$TIMEOUT'"
+  usage 3
+fi
 
 if [ "$HOST" = "" -o "$PORT" = "" ]; then
   echoerr "Error: you need to provide a host and port to test."
