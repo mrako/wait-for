@@ -25,7 +25,7 @@ wait_for() {
     exit 1
   fi
 
-  for i in `seq $TIMEOUT` ; do
+  while :; do
     nc -z "$HOST" "$PORT" > /dev/null 2>&1
     
     result=$?
@@ -35,6 +35,12 @@ wait_for() {
       fi
       exit 0
     fi
+
+    if [ "$TIMEOUT" -le 0 ]; then
+      break
+    fi
+    TIMEOUT=$((TIMEOUT - 1))
+
     sleep 1
   done
   echo "Operation timed out" >&2
