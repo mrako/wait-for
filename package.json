@@ -22,7 +22,18 @@
         }
       ],
       "@semantic-release/git",
-      "@semantic-release/github"
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            { 
+              "path": "wait-for", 
+              "name": "wait-for_${nextRelease.gitTag}", 
+              "label": "The wait-for script (${nextRelease.gitTag})"
+            }
+          ]
+        }
+      ]
     ]
   }
 }
