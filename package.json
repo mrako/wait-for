@@ -5,6 +5,24 @@
     "test": "./node_modules/.bin/bats wait-for.bats"
   },
   "devDependencies": {
-    "bats": "^1.2.1"
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "bats": "^1.2.1",
+    "semantic-release": "^17.3.7"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   }
 }
