@@ -1,6 +1,6 @@
 {
   "name": "wait-for",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "test": "./node_modules/.bin/bats wait-for.bats"
   },
