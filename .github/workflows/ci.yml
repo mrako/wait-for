@@ -5,8 +5,8 @@ on: [push, pull_request]
 jobs:
 
   test:
-
-    runs-on: ubuntu-latest
+    name: Test
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -20,6 +20,9 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-20.04
+
+    needs:
+      - test
 
     steps:
       - name: Checkout
