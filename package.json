@@ -28,8 +28,8 @@
           "assets": [
             {
               "path": "wait-for",
-              "name": "wait-for_${nextRelease.gitTag}",
-              "label": "The wait-for script (${nextRelease.gitTag})"
+              "name": "wait-for",
+              "label": "wait-for (${nextRelease.gitTag})"
             }
           ]
         }
