@@ -50,6 +50,14 @@ Ironically testing is done using [bats](https://github.com/sstephenson/bats), wh
     docker build -t wait-for .
     docker run -t wait-for
     
+## Contributing
+
+When creating PRs, please style your commit messages according to [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/), you can use a tool like [commitizen](https://github.com/commitizen/cz-cli) to guide you. We will automatically infer the changelog from your commits. Alternatively, we can squash all commits when merging and update the commit message.
+
+This project strongly prefers maintaining backwards compatibility, therefore some obvious "fixes" might not be accepted.
+
+Also, please include or update the test cases whenever possible by extending `wait-for.bats`. 
+    
 ## Note
 
 Make sure netcat is installed in your Dockerfile before running the command.
