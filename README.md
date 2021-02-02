@@ -1,5 +1,5 @@
 <br />
-<h3 align="center">wait-for</h3>
+<h1 align="center">wait-for</h3>
 
 <p align="center">
 
@@ -38,12 +38,24 @@ When using this tool, you only need to pick the `wait-for` file as part of your 
 
 ## Usage
 
+Download the `wait-for` file, either the latest from [`master`](https://raw.githubusercontent.com/eficode/wait-for/master/wait-for) or for a specific version check out the [Releases](https://github.com/eficode/wait-for/releases)-page.
+
+With the file locally on your file system, you can directly invoke it.
+
 ```
 ./wait-for host:port [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
   -- COMMAND ARGS                     Execute command with args after the test finishes
 ```
+
+Alternatively, you could download the script when invoking the command and pipe it into `sh` or `bash` (requires `curl` to be installed):
+
+```
+$ sh -s -- google.com:80 -- echo "success" < <(curl -s https://raw.githubusercontent.com/eficode/wait-for/v1.1.0/wait-for)
+```
+
+_Note: When using the latter option, make sure to pin the version. Future releases could introduce non-backwards compatible changes._
 
 ## Examples
 
