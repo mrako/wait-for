@@ -1,10 +1,40 @@
-## Wait for another service to become available
+<br />
+<h3 align="center">wait-for</h3>
+
+<p align="center">
+
+  <p align="center">
+     Wait for another service to become available
+  <br/>
+  
+  <a href="https://github.com/Eficode/wait-for/graphs/contributors">
+  <img src="https://img.shields.io/github/contributors/Eficode/wait-for.svg?style=flat-square">
+  </a>
+  <a href="https://github.com/Eficode/wait-for/network/members">
+  <img src="https://img.shields.io/github/forks/Eficode/wait-for.svg?style=flat-square">
+  </a>
+  <a href="https://github.com/Eficode/wait-for/stargazers">
+  <img src="https://img.shields.io/github/stars/Eficode/wait-for.svg?style=flat-square">
+  </a>
+  <a href="https://github.com/Eficode/wait-for/blob/master/LICENSE.txt">
+  <img src="https://img.shields.io/github/license/Eficode/wait-for.svg?style=flat-square">
+  </a> 
+  <a href="https://github.com/Eficode/wait-for/actions">
+  <img src="https://img.shields.io/github/workflow/status/Eficode/wait-for/Test?style=flat-square&logo=github%20actions">
+  </a> 
+  <a href="https://github.com/Eficode/wait-for/releases">
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Eficode/wait-for?style=flat-square">
+  </a>
+  <br/>
+  <a href="https://github.com/eficode/wait-for#examples"><strong>Example usage</strong></a>
+  ·
+  <a href="https://github.com/Eficode/wait-for/pulls">Submit a PR</a>
+  </p>
+</p>
 
 `./wait-for` is a script designed to synchronize services like docker containers. It is [sh](https://en.wikipedia.org/wiki/Bourne_shell) and [alpine](https://alpinelinux.org/) compatible. It was inspired by [vishnubob/wait-for-it](https://github.com/vishnubob/wait-for-it), but the core has been rewritten at [Eficode](http://eficode.com/) by [dsuni](https://github.com/dsuni) and [mrako](https://github.com/mrako).
 
 When using this tool, you only need to pick the `wait-for` file as part of your project.
-
-[![Build Status](https://travis-ci.org/eficode/wait-for.svg?branch=master)](https://travis-ci.org/eficode/wait-for)
 
 ## Usage
 
