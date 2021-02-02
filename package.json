@@ -1,6 +1,6 @@
 {
   "name": "wait-for",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "test": "./node_modules/.bin/bats wait-for.bats"
   },
@@ -26,9 +26,9 @@
         "@semantic-release/github",
         {
           "assets": [
-            { 
-              "path": "wait-for", 
-              "name": "wait-for_${nextRelease.gitTag}", 
+            {
+              "path": "wait-for",
+              "name": "wait-for_${nextRelease.gitTag}",
               "label": "The wait-for script (${nextRelease.gitTag})"
             }
           ]

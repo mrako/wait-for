@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/eficode/wait-for/compare/v1.0.0...v1.1.0) (2021-02-02)
+
+
+### Bug Fixes
+
+* **iteration:** Remember to try one last time before giving up ([2ed5308](https://github.com/eficode/wait-for/commit/2ed5308e39aa9fe462fde50dc491deedd8dbad75))
+
+
+### Features
+
+* **option:** Restrict the timeout input to non-negative integers ([c4d125f](https://github.com/eficode/wait-for/commit/c4d125f22d34dfa589509abd0103404a7ab2a222))
+* **option:** Support more conventional formats in the option parser ([ce95717](https://github.com/eficode/wait-for/commit/ce95717bd98e65a447aa2f0de6ae64e52bbfbe65))
+
 # 1.0.0 (2021-01-31)
 
 
