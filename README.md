@@ -17,12 +17,10 @@ When using this tool, you only need to pick the `wait-for` file as part of your 
 
 ## Examples
 
-To check if [eficode.com](https://eficode.com) is available:
+To check if [www.eficode.com](https://www.eficode.com) is available:
 
 ```
 $ ./wait-for www.eficode.com:80 -- echo "Eficode site is up"
-
-Connection to www.eficode.com port 80 [tcp/http] succeeded!
 Eficode site is up
 ```
 
