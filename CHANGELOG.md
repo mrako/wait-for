@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/eficode/wait-for/compare/v1.1.0...v1.2.0) (2021-02-02)
+
+
+### Features
+
+* adds license header to wait-for script ([975d508](https://github.com/eficode/wait-for/commit/975d508c4839631c839de553fdca3c72c3628714))
+
 # [1.1.0](https://github.com/eficode/wait-for/compare/v1.0.0...v1.1.0) (2021-02-02)
 
 
