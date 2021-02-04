@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/eficode/wait-for/compare/v1.2.0...v2.0.0) (2021-02-04)
+
+
+### Bug Fixes
+
+* **command:** Restore environment variables before calling `exec` ([c7631e5](https://github.com/eficode/wait-for/commit/c7631e52594858ff18d1ab563e111289f8f8b45e))
+
+
+### BREAKING CHANGES
+
+* **command:** HOST, PORT and other internally used environment variables are not overwritten anymore. If you use these, then you need to manually supply them.
+
 # [1.2.0](https://github.com/eficode/wait-for/compare/v1.1.0...v1.2.0) (2021-02-02)
 
 
