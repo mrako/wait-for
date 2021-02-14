@@ -88,7 +88,7 @@ services:
 Ironically testing is done using [bats](https://github.com/sstephenson/bats), which on the other hand is depending on [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
 
     docker build -t wait-for .
-    docker run -t wait-for
+    docker run --rm -t wait-for
     
 ## Contributing
 
