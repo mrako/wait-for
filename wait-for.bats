@@ -33,15 +33,54 @@
   [ "$output" != "success" ]
 }
 
-@test "environment variables should be restored for command invocation" {
+@test "environment variable HOST should be restored for command invocation" {
   HOST=success run ./wait-for -t 1 google.com:80 -- sh -c 'echo "$HOST"'
 
   [ "$output" = "success" ]
 }
 
-@test "unset environment variables should be restored as unset for command invocation" {
+@test "unset environment variable HOST should be restored as unset for command invocation" {
   run ./wait-for -t 1 google.com:80 -- sh -uc 'echo "$HOST"'
 
   [ "$status" -ne 0 ]
   [ "$output" != "google.com" ]
+}
+
+@test "environment variable PROTOCOL should be restored for command invocation" {
+  PROTOCOL=success run ./wait-for -t 1 google.com:80 -- sh -c 'echo "$PROTOCOL"'
+
+  [ "$output" = "success" ]
+}
+
+@test "unset environment variables PROTOCOL should be restored as unset for command invocation" {
+  run ./wait-for -t 1 google.com:80 -- sh -uc 'echo "$PROTOCOL"'
+
+  [ "$status" -ne 0 ]
+  [ "$output" != "google.com" ]
+}
+
+@test "http://duckduckgo.com should be immediately found" {
+  run ./wait-for http://duckduckgo.com -- echo 'success'
+
+  [ "$output" = "success" ]
+}
+
+@test "https://duckduckgo.com should be immediately found" {
+  run ./wait-for https://duckduckgo.com -- echo 'success'
+
+  [ "$output" = "success" ]
+}
+
+@test "connection error in HTTP test should not start command" {
+  run ./wait-for -t 1 http://google.com:8080 -- echo 'success'
+
+  [ "$status" -ne 0 ]
+  [ "$output" != "success" ]
+}
+
+@test "not found HTTP status should not start command" {
+  run ./wait-for -t 1 http://google.com/ping -- echo 'success'
+
+  [ "$status" -ne 0 ]
+  [ "$output" != "success" ]
 }

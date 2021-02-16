@@ -43,7 +43,7 @@ Download the `wait-for` file, either the latest from [`master`](https://raw.gith
 With the file locally on your file system, you can directly invoke it.
 
 ```
-./wait-for host:port [-t timeout] [-- command args]
+./wait-for host:port|url [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
   -- COMMAND ARGS                     Execute command with args after the test finishes
@@ -69,8 +69,8 @@ Eficode site is up
 To wait for database container to become available:
 
 
-```
-version: '2'
+```yml
+version: '3'
 
 services:
   db:
@@ -81,6 +81,30 @@ services:
     command: sh -c './wait-for db:5432 -- npm start'
     depends_on:
       - db
+```
+
+To check if [https://www.eficode.com](https://www.eficode.com) is available over HTTPS:
+```
+$ ./wait-for https://www.eficode.com -- echo "Eficode is accessible over HTTPS"
+Eficode is accessible over HTTPS
+```
+
+To wait for your API service to become available:
+
+
+```yml
+version: '3'
+
+services:
+  api:
+    image: nginx
+
+  tests:
+    build: .
+    command: sh -c './wait-for http://api -- echo "The api is up! Let's use it"'
+    depends_on:
+      - api
+
 ```
 
 ## Testing
@@ -100,9 +124,11 @@ Also, please include or update the test cases whenever possible by extending `wa
     
 ## Note
 
-Make sure netcat is installed in your Dockerfile before running the command.
+Make sure netcat is installed in your Dockerfile before running the command if you test over plain TCP.
 ```
 RUN apt-get -q update && apt-get -qy install netcat
 ```
 https://stackoverflow.com/questions/44663180/docker-why-does-wait-for-always-time-out
 
+If you are connecting over HTTP, then you will need to have wget available.
+ 
