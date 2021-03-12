@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/eficode/wait-for/compare/v2.1.0...v2.1.1) (2021-03-12)
+
+
+### Bug Fixes
+
+* correctly render the command name in the help text ([d2bbce7](https://github.com/eficode/wait-for/commit/d2bbce787871c67cdcfe1e614b90f96e1c3217f3)), closes [#16](https://github.com/eficode/wait-for/issues/16)
+
 # [2.1.0](https://github.com/eficode/wait-for/compare/v2.0.0...v2.1.0) (2021-02-27)
 
 
